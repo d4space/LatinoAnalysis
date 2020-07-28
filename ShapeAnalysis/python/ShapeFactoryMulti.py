@@ -628,40 +628,16 @@ class ShapeFactory:
 
           print 'Start nominal histogram fill'
           drawer.execute(nevents, firstEvent)
-          tmpROOTFile.Close()##jhchoi
-          if os.path.exists(tmpfile.name):#jhchoi
-            _size=os.path.getsize(tmpfile.name)#jhchoi
-            print "[jhchoi] <<tmp file size>>",_size/1000000,'MB'#jhchoi
-            os.unlink(tmpfile.name)#jhchoi
-            #os.system("rm -rf "+tmpfile.name)
-
-
-
 
           # tree-type nuisances
           for nuisanceName in nuisanceDrawers.keys():
-
             ndrawers = nuisanceDrawers.pop(nuisanceName)
             for var, ndrawer in ndrawers.iteritems():
-              tmpROOTFile = ROOT.TFile.Open(tmpfile.name, 'recreate')#jhchoi
-              tmpROOTFile.cd()#jhchoi
               print 'Start', nuisanceName + var, 'histogram fill'
               ndrawer.execute(nevents, firstEvent)
 
-              tmpROOTFile.Close()#jhchoi
-              if os.path.exists(tmpfile.name):
-                _size=os.path.getsize(tmpfile.name)
-                print "[jhchoi] <<tmp file size>>",_size/1000000,'MB'
-                os.unlink(tmpfile.name)
-          #tmpROOTFile.Close()
-          #print "[jhchoi] <<tmp file size>>",tmpfile.name
-
-          
-          #if os.path.exists(tmpfile.name):
-          #  _size=os.path.getsize(tmpfile.name)
-          #  print _size/1000000,'MB'
-          #  os.unlink(tmpfile.name)
-          #  os.system("rm -rf "+tmpfile.name)
+          tmpROOTFile.Close()
+          os.unlink(tmpfile.name)
 
           print 'Postfill'
 
